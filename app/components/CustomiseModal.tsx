@@ -13,6 +13,7 @@ export function CustomiseModal({
   onClose: () => void;
   useNav?: typeof useSideNav;
 }) {
+  console.log("[CustomiseModal] Using context:", useNav.name);
   const { update, reset } = useNav();
   const { update: updateTheme } = useTheme();
   const [prompt, setPrompt] = useState("");

@@ -10,6 +10,7 @@ export function SideNav() {
   const { nav } = useNav();
   const path = usePathname();
   const [modalOpen, setModalOpen] = useState(false);
+  console.log("[SideNav] nav:", nav);
   return (
     <aside className="w-56 bg-gray-50 border-r h-screen p-4 flex flex-col justify-between">
       <div>
