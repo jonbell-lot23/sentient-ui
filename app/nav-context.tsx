@@ -41,6 +41,7 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
   const update = (s: NavState) => {
+    console.log("[SideNavContext] update called with:", s);
     if (s.order) {
       const visibleItems = defaultNav
         .filter((i) => !s.hidden?.includes(i.id))
