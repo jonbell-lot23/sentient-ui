@@ -11,7 +11,7 @@ export function CustomiseModal({
   open: boolean;
   onClose: () => void;
 }) {
-  const { update } = useNav();
+  const { update, reset } = useNav();
   const { update: updateTheme } = useTheme();
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,6 @@ export function CustomiseModal({
     else {
       if (data.order || data.hidden) update(data);
       if (data.theme) updateTheme(data.theme);
-      setMessage("Navigation updated ✨");
     }
     setLoading(false);
     setPrompt("");
@@ -64,12 +63,17 @@ export function CustomiseModal({
         >
           {loading ? "Thinking…" : "Apply"}
         </button>
+        <button
+          className="border border-blue-600 text-blue-600 rounded px-4 py-2 hover:bg-blue-50 transition mt-2 w-full"
+          onClick={() => {
+            reset();
+            onClose();
+          }}
+        >
+          Reset
+        </button>
       </div>
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      {message && (
-        <p className="text-green-600 text-sm animate-pulse">{message}</p>
-      )}
-      <div>Customize your navigation here.</div>
     </Modal>
   );
 }

@@ -1,77 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useNav } from "./nav-context";
-import { useTheme } from "./theme-context";
 
 export default function Home() {
-  const { update, reset } = useNav();
-  const { update: updateTheme, reset: resetTheme } = useTheme();
-  const [prompt, setPrompt] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
-
-  async function submit() {
-    if (!prompt.trim()) return;
-    setLoading(true);
-    setError("");
-    const res = await fetch("/api/customise", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
-    });
-    const data = await res.json();
-    if (data.error) setError(data.error);
-    else {
-      if (data.order || data.hidden) update(data);
-      if (data.theme) updateTheme(data.theme);
-      setMessage("Navigation updated ✨");
-    }
-    setLoading(false);
-    setPrompt("");
-  }
-
-  // Clear success message after a short delay
-  useEffect(() => {
-    if (!message) return;
-    const t = setTimeout(() => setMessage(""), 2000);
-    return () => clearTimeout(t);
-  }, [message]);
-
+  // You can add dashboard-specific content here if needed
   return (
     <section className="space-y-4 max-w-xl">
       <header className="mb-2">
         <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
       </header>
-      <textarea
-        className="w-full border p-2 rounded"
-        rows={3}
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="e.g. 'Hide sales and move analytics first'"
-      />
-      <div className="flex gap-4">
-        <button
-          onClick={submit}
-          disabled={loading}
-          className="bg-black text-white px-4 py-2 rounded"
-        >
-          {loading ? "Thinking…" : "Apply"}
-        </button>
-        <button
-          onClick={() => {
-            reset();
-            resetTheme();
-          }}
-          className="underline text-sm"
-        >
-          Reset
-        </button>
-      </div>
-      {error && <p className="text-red-600 text-sm">{error}</p>}
-      {message && (
-        <p className="text-green-600 text-sm animate-pulse">{message}</p>
-      )}
+      <p className="text-gray-700">
+        Welcome to your main dashboard. A quick overview of metrics would appear
+        here.
+      </p>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { defaultNav } from "@/lib/nav-items";
+import { defaultSideNav as defaultNav } from "@/lib/nav-items";
 
 const content: Record<string, string> = {
   dashboard:

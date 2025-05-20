@@ -8,6 +8,13 @@ import {
   FileText,
   Bell,
   Settings,
+  File,
+  Folder,
+  Calendar,
+  Bookmark,
+  Star,
+  Globe,
+  Cloud,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -19,7 +26,7 @@ export type NavItem = {
   color: string;
 };
 
-export const defaultNav: NavItem[] = [
+export const defaultSideNav: NavItem[] = [
   {
     id: "dashboard",
     label: "Dashboard",
@@ -67,5 +74,50 @@ export const defaultNav: NavItem[] = [
     label: "Settings",
     Icon: Settings,
     color: "bg-gray-700 text-white",
+  },
+];
+
+export const defaultHamburgerNav: NavItem[] = [
+  {
+    id: "item1",
+    label: "Item 1",
+    Icon: File,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item2",
+    label: "Item 2",
+    Icon: Folder,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item3",
+    label: "Item 3",
+    Icon: Calendar,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item4",
+    label: "Item 4",
+    Icon: Bookmark,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item5",
+    label: "Item 5",
+    Icon: Star,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item6",
+    label: "Item 6",
+    Icon: Globe,
+    color: "bg-gray-200 text-gray-900",
+  },
+  {
+    id: "item7",
+    label: "Item 7",
+    Icon: Cloud,
+    color: "bg-gray-200 text-gray-900",
   },
 ];

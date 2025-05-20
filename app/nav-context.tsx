@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { defaultNav, NavItem } from "@/lib/nav-items";
+import { defaultSideNav as defaultNav, NavItem } from "@/lib/nav-items";
 
 interface NavState {
   order?: string[];
