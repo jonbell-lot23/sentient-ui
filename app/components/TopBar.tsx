@@ -117,7 +117,11 @@ export function TopBar() {
           )}
         </div>
       </div>
-      <CustomiseModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <CustomiseModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        useNav={useHamburgerNav}
+      />
       <style jsx global>{`
         @keyframes fadeIn {
           from {

@@ -15,7 +15,10 @@ If the user request can be satisfied with hiding/reordering items or changing th
 Else return:
   { "error": "Sorry, that's not supported yet. The team has been notified." }
 
-Available items: dashboard, analytics, sales, customers, products, reports, notifications, settings
+Available items for the hamburger menu: item1, item2, item3, item4, item5, item6, item7
+You can hide (remove) or reorder these items. For example, to remove item1, add it to the "hidden" array: { "hidden": ["item1"] }
+To move item7 to the top, put it first in the "order" array.
+Supported actions: Hide, Remove, Move, Reorder.
 `;
 
 export async function POST(req: NextRequest) {

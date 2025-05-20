@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
-import { useNav } from "../nav-context";
+import { useNav as useSideNav } from "../nav-context";
 import { useTheme } from "../theme-context";
 import { Modal } from "./Modal";
 
 export function CustomiseModal({
   open,
   onClose,
+  useNav = useSideNav,
 }: {
   open: boolean;
   onClose: () => void;
+  useNav?: typeof useSideNav;
 }) {
   const { update, reset } = useNav();
   const { update: updateTheme } = useTheme();
@@ -19,6 +21,7 @@ export function CustomiseModal({
   const [message, setMessage] = useState("");
 
   async function submit() {
+    console.log("[CustomiseModal] Submitting prompt:", prompt);
     if (!prompt.trim()) return;
     setLoading(true);
     setError("");
@@ -30,6 +33,7 @@ export function CustomiseModal({
     const data = await res.json();
     if (data.error) setError(data.error);
     else {
+      console.log("[CustomiseModal] Applying update:", data);
       if (data.order || data.hidden) update(data);
       if (data.theme) updateTheme(data.theme);
     }
