@@ -31,7 +31,7 @@ export default function Home() {
         rows={3}
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        placeholder="e.g. 'Hide items 2‑10, put item 15 first'"
+        placeholder="e.g. 'Hide sales and move analytics first'"
       />
       <div className="flex gap-4">
         <button
