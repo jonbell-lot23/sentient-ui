@@ -91,7 +91,6 @@ export function TopBar() {
                 <button
                   className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                   onClick={() => {
-                    setMenuOpen(false);
                     setModalOpen(true);
                   }}
                 >
@@ -119,7 +118,10 @@ export function TopBar() {
       </div>
       <CustomiseModal
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false);
+          setMenuOpen(false);
+        }}
         useNav={useHamburgerNav}
       />
       <style jsx global>{`
