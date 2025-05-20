@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNav } from "./nav-context";
 import { useTheme } from "./theme-context";
 
@@ -9,6 +9,7 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   async function submit() {
     if (!prompt.trim()) return;
@@ -24,10 +25,18 @@ export default function Home() {
     else {
       if (data.order || data.hidden) update(data);
       if (data.theme) updateTheme(data.theme);
+      setMessage("Navigation updated ✨");
     }
     setLoading(false);
     setPrompt("");
   }
+
+  // Clear success message after a short delay
+  useEffect(() => {
+    if (!message) return;
+    const t = setTimeout(() => setMessage(""), 2000);
+    return () => clearTimeout(t);
+  }, [message]);
 
   return (
     <section className="space-y-4 max-w-xl">
@@ -57,6 +66,7 @@ export default function Home() {
         </button>
       </div>
       {error && <p className="text-red-600 text-sm">{error}</p>}
+      {message && <p className="text-green-600 text-sm animate-pulse">{message}</p>}
     </section>
   );
 }
