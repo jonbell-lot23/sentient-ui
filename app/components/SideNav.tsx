@@ -2,28 +2,55 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useNav } from "../nav-context";
-import { useAutoAnimate } from "../../lib/useAutoAnimate";
+import { useState } from "react";
+import { Settings } from "lucide-react";
+import { Modal } from "./Modal";
 
 export function SideNav() {
   const { nav } = useNav();
   const path = usePathname();
-  const parent = useAutoAnimate([nav]);
+  const [modalOpen, setModalOpen] = useState(false);
   return (
-    <aside ref={parent} className="w-56 bg-gray-50 border-r h-screen p-4 space-y-1">
-      {nav.map((i) => {
-        const active = path === `/${i.id}`;
-        return (
-          <Link
-            key={i.id}
-            href={`/${i.id}`}
-            data-id={i.id}
-            className={`flex items-center gap-3 px-3 py-2 rounded transition-all hover:bg-gray-200 ${active ? "bg-gray-200 font-medium" : ""}`}
+    <aside className="w-56 bg-gray-50 border-r h-screen p-4 flex flex-col justify-between">
+      <div>
+        {nav.map((i) => {
+          const active = path === `/${i.id}`;
+          return (
+            <Link
+              key={i.id}
+              href={`/${i.id}`}
+              className={`flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-200 ${
+                active ? "bg-gray-200 font-medium" : ""
+              }`}
+            >
+              <i.Icon className="w-5 h-5" />
+              <span>{i.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="flex flex-col items-start">
+        <button
+          className="flex items-center gap-2 text-gray-500 hover:text-gray-900 hover:bg-gray-200 p-2 rounded"
+          onClick={() => setModalOpen(true)}
+          title="Customize navigation"
+        >
+          <Settings className="w-5 h-5" />
+          <span className="text-sm">Customize</span>
+        </button>
+      </div>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-lg font-semibold">Customize Navigation</h2>
+          <button
+            onClick={() => setModalOpen(false)}
+            className="text-gray-400 hover:text-gray-700 p-1"
           >
-            <i.Icon className="w-5 h-5" />
-            <span>{i.label}</span>
-          </Link>
-        );
-      })}
+            ✕
+          </button>
+        </div>
+        <div>Customize your navigation here.</div>
+      </Modal>
     </aside>
   );
 }
