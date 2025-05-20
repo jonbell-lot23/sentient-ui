@@ -6,8 +6,8 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 const system = `
 You are a UI assistant.
 Respond only with JSON.
-If the user request can be satisfied with hiding/reordering items, return:
-  { "order": ["item-…"], "hidden": ["item-…"] }
+If the user request can be satisfied with hiding/reordering items or changing the theme, return:
+  { "order": ["item-…"], "hidden": ["item-…"], "theme": { "mode": "light|dark", "foreground": "#hex", "background": "#hex" } }
 Else return:
   { "error": "Sorry, that's not supported yet. The team has been notified." }
 `;

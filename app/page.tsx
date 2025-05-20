@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useNav } from "./nav-context";
+import { useTheme } from "./theme-context";
 
 export default function Home() {
   const { update, reset } = useNav();
+  const { update: updateTheme, reset: resetTheme } = useTheme();
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -19,7 +21,10 @@ export default function Home() {
     });
     const data = await res.json();
     if (data.error) setError(data.error);
-    else update(data);
+    else {
+      if (data.order || data.hidden) update(data);
+      if (data.theme) updateTheme(data.theme);
+    }
     setLoading(false);
     setPrompt("");
   }
@@ -41,7 +46,13 @@ export default function Home() {
         >
           {loading ? "Thinking…" : "Apply"}
         </button>
-        <button onClick={reset} className="underline text-sm">
+        <button
+          onClick={() => {
+            reset();
+            resetTheme();
+          }}
+          className="underline text-sm"
+        >
           Reset
         </button>
       </div>
