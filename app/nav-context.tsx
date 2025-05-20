@@ -3,8 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { defaultNav, NavItem } from "@/lib/nav-items";
 
 interface NavState {
-  order: string[];
-  hidden: string[];
+  order?: string[];
+  hidden?: string[];
 }
 const STORAGE_KEY = "custom-nav";
 
@@ -29,13 +29,14 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
   const update = (s: NavState) => {
-    setState(s);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+    const newState = { ...state, ...s };
+    setState(newState);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
   };
 
   const reset = () => {
     localStorage.removeItem(STORAGE_KEY);
-    setState({ order: [], hidden: [] });
+    setState({});
   };
 
   return <Ctx.Provider value={{ nav, update, reset }}>{children}</Ctx.Provider>;
