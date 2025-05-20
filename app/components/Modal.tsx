@@ -26,7 +26,7 @@ export function Modal({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-2xl p-6 min-w-[320px] max-w-full animate-fadeIn"
+        className="bg-white text-gray-900 rounded-lg shadow-2xl p-6 min-w-[320px] max-w-full animate-fadeIn"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

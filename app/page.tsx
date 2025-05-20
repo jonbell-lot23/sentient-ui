@@ -40,6 +40,9 @@ export default function Home() {
 
   return (
     <section className="space-y-4 max-w-xl">
+      <header className="mb-2">
+        <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+      </header>
       <textarea
         className="w-full border p-2 rounded"
         rows={3}
@@ -66,7 +69,9 @@ export default function Home() {
         </button>
       </div>
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      {message && <p className="text-green-600 text-sm animate-pulse">{message}</p>}
+      {message && (
+        <p className="text-green-600 text-sm animate-pulse">{message}</p>
+      )}
     </section>
   );
 }

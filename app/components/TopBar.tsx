@@ -1,19 +1,23 @@
 "use client";
-import Link from "next/link";
-import { useNav } from "../nav-context";
-import { usePathname } from "next/navigation";
-import { Menu, Plus, HelpCircle, User, Settings } from "lucide-react";
 import { useState } from "react";
-import { Modal } from "./Modal";
+import {
+  Menu,
+  Plus,
+  HelpCircle,
+  User,
+  Settings,
+  Sparkles,
+  Rocket,
+  Zap,
+} from "lucide-react";
+import { CustomiseModal } from "./CustomiseModal";
 
 export function TopBar() {
-  const { nav } = useNav();
-  const path = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <header className="w-full bg-blue-600 text-white shadow flex items-center h-14 px-4 relative">
+    <header className="w-full bg-blue-600 text-white shadow flex items-center h-14 px-4 relative z-50">
       {/* Company Dropdown (placeholder) */}
       <div className="relative mr-8">
         <button className="flex items-center gap-2 font-semibold text-white hover:bg-blue-700 px-3 py-1 rounded">
@@ -30,37 +34,26 @@ export function TopBar() {
           </svg>
         </button>
       </div>
-      {/* Nav Tabs (hidden on mobile) */}
-      <nav className="gap-2 flex-1 hidden md:flex">
-        {nav.map((i) => (
-          <Link
-            key={i.id}
-            href={`/${i.id}`}
-            className={`px-3 py-2 rounded font-medium transition-colors text-sm ${
-              path === `/${i.id}`
-                ? "bg-white text-blue-700 shadow"
-                : "hover:bg-blue-500 hover:text-white text-white/90"
-            }`}
-          >
-            {i.label}
-          </Link>
-        ))}
-      </nav>
-      {/* Right Icons */}
+      {/* Spacer to push icons right */}
+      <div className="flex-1" />
+      {/* Right: Distinctive icons, user avatar, customize, and hamburger */}
       <div className="flex items-center gap-3 ml-4">
-        <button className="hover:bg-blue-500 p-2 rounded" title="Add">
-          <Plus className="w-5 h-5" />
+        <button className="hover:bg-blue-500 p-2 rounded" title="Sparkles">
+          <Sparkles className="w-5 h-5" stroke="currentColor" />
         </button>
-        <button className="hover:bg-blue-500 p-2 rounded" title="Help">
-          <HelpCircle className="w-5 h-5" />
+        <button className="hover:bg-blue-500 p-2 rounded" title="Rocket">
+          <Rocket className="w-5 h-5" stroke="currentColor" />
+        </button>
+        <button className="hover:bg-blue-500 p-2 rounded" title="Zap">
+          <Zap className="w-5 h-5" stroke="currentColor" />
         </button>
         <button className="hover:bg-blue-500 p-2 rounded-full" title="Account">
           <span className="inline-flex items-center justify-center w-8 h-8 bg-orange-400 text-white font-bold rounded-full">
             HE
           </span>
         </button>
-        {/* Hamburger menu for mobile or extra options */}
-        <div className="relative md:hidden">
+        {/* Hamburger menu always visible for now */}
+        <div className="relative">
           <button
             className="ml-2 hover:bg-blue-500 p-2 rounded"
             title="Menu"
@@ -72,19 +65,6 @@ export function TopBar() {
           {menuOpen && (
             <div className="absolute right-0 mt-2 w-56 bg-white text-gray-900 rounded shadow-2xl z-[100] animate-fadeIn">
               <div className="flex flex-col divide-y divide-gray-100">
-                {nav.map((i) => (
-                  <Link
-                    key={i.id}
-                    href={`/${i.id}`}
-                    className={`flex items-center gap-2 px-4 py-2 hover:bg-gray-100 ${
-                      path === `/${i.id}` ? "font-semibold text-blue-700" : ""
-                    }`}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <i.Icon className="w-5 h-5" />
-                    <span>{i.label}</span>
-                  </Link>
-                ))}
                 <button
                   className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                   onClick={() => {
@@ -92,26 +72,29 @@ export function TopBar() {
                     setModalOpen(true);
                   }}
                 >
-                  <Settings className="w-5 h-5" />
+                  <Settings className="w-5 h-5" stroke="currentColor" />
                   <span>Customize</span>
+                </button>
+                <button
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Settings className="w-5 h-5" stroke="currentColor" />
+                  <span>Settings</span>
+                </button>
+                <button
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <HelpCircle className="w-5 h-5" stroke="currentColor" />
+                  <span>Help</span>
                 </button>
               </div>
             </div>
           )}
         </div>
       </div>
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-lg font-semibold">Customize Navigation</h2>
-          <button
-            onClick={() => setModalOpen(false)}
-            className="text-gray-400 hover:text-gray-700 p-1"
-          >
-            ✕
-          </button>
-        </div>
-        <div>Customize your navigation here.</div>
-      </Modal>
+      <CustomiseModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <style jsx global>{`
         @keyframes fadeIn {
           from {

@@ -1,7 +1,8 @@
 import { defaultNav } from "@/lib/nav-items";
 
 const content: Record<string, string> = {
-  dashboard: "Welcome to your main dashboard. A quick overview of metrics would appear here.",
+  dashboard:
+    "Welcome to your main dashboard. A quick overview of metrics would appear here.",
   analytics: "Charts and insights help you make informed decisions.",
   sales: "Track revenue and monitor sales performance on this page.",
   customers: "Manage your customer relationships and view contact history.",
@@ -17,10 +18,12 @@ export default function ItemPage({ params }: { params: { id: string } }) {
 
   return (
     <section className="space-y-4">
-      <header className={`${item.color} rounded px-4 py-3`}>
-        <h1 className="text-xl font-semibold">{item.label}</h1>
+      <header className="mb-2">
+        <h1 className="text-xl font-semibold text-gray-900">{item.label}</h1>
       </header>
-      <p className="text-gray-700">{content[item.id] || "Demo content goes here."}</p>
+      <p className="text-gray-700">
+        {content[item.id] || "Demo content goes here."}
+      </p>
     </section>
   );
 }
