@@ -9,6 +9,13 @@ import {
   Sparkles,
   Rocket,
   Zap,
+  File,
+  Folder,
+  Calendar,
+  Bookmark,
+  Star,
+  Globe,
+  Cloud,
 } from "lucide-react";
 import { CustomiseModal } from "./CustomiseModal";
 
@@ -65,6 +72,36 @@ export function TopBar() {
           {menuOpen && (
             <div className="absolute right-0 mt-2 w-56 bg-white text-gray-900 rounded shadow-2xl z-[100] animate-fadeIn">
               <div className="flex flex-col divide-y divide-gray-100">
+                {/* Dummy items for testing */}
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <File className="w-5 h-5" />
+                  <span>Item 1</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Folder className="w-5 h-5" />
+                  <span>Item 2</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Calendar className="w-5 h-5" />
+                  <span>Item 3</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Bookmark className="w-5 h-5" />
+                  <span>Item 4</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Star className="w-5 h-5" />
+                  <span>Item 5</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Globe className="w-5 h-5" />
+                  <span>Item 6</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700">
+                  <Cloud className="w-5 h-5" />
+                  <span>Item 7</span>
+                </button>
+                {/* Existing items */}
                 <button
                   className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                   onClick={() => {
