@@ -11,7 +11,14 @@ interface CustomizeInputProps {
   position?: "bottom-center" | "bottom-right";
 }
 
-export function CustomizeInput({ onSubmit, onReset, context, onInputChange, onExpand, position = "bottom-center" }: CustomizeInputProps) {
+export function CustomizeInput({
+  onSubmit,
+  onReset,
+  context,
+  onInputChange,
+  onExpand,
+  position = "bottom-center",
+}: CustomizeInputProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +33,7 @@ export function CustomizeInput({ onSubmit, onReset, context, onInputChange, onEx
 
   const handleSubmit = async () => {
     if (!prompt.trim() || loading) return;
-    
+
     setLoading(true);
     await onSubmit(prompt);
     setLoading(false);
@@ -47,9 +54,10 @@ export function CustomizeInput({ onSubmit, onReset, context, onInputChange, onEx
     }
   };
 
-  const positionClasses = position === "bottom-center" 
-    ? "fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
-    : "fixed bottom-6 right-6 z-50";
+  const positionClasses =
+    position === "bottom-center"
+      ? "fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
+      : "fixed bottom-6 right-6 z-50";
 
   return (
     <div className={positionClasses}>
@@ -73,7 +81,9 @@ export function CustomizeInput({ onSubmit, onReset, context, onInputChange, onEx
                 onInputChange?.(e.target.value);
               }}
               onKeyDown={handleKeyDown}
-              placeholder={`Customize ${context === "sidebar" ? "sidebar" : "menu"}...`}
+              placeholder={`Customize ${
+                context === "sidebar" ? "sidebar" : "menu"
+              }...`}
               className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={loading}
             />
@@ -100,7 +110,10 @@ export function CustomizeInput({ onSubmit, onReset, context, onInputChange, onEx
             </button>
           </div>
           <div className="mt-2 flex justify-between text-xs text-gray-500">
-            <span>Try: "remove notifications" or "move settings to top"</span>
+            <span>
+              Try: &quot;remove notifications&quot; or &quot;move settings to
+              top&quot;
+            </span>
             <button
               onClick={onReset}
               className="text-blue-600 hover:text-blue-700"
