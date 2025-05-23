@@ -42,6 +42,13 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
 
   const update = (s: NavState) => {
     console.log("[SideNavContext] update called with:", s);
+    
+    // When hiding items, preserve the current order of visible items
+    if (s.hidden && !s.order) {
+      const currentOrder = nav.map(item => item.id);
+      s.order = currentOrder;
+    }
+    
     if (s.order) {
       const visibleItems = defaultNav
         .filter((i) => !s.hidden?.includes(i.id))

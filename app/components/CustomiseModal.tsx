@@ -8,10 +8,12 @@ export function CustomiseModal({
   open,
   onClose,
   useNav = useSideNav,
+  context = "sidebar",
 }: {
   open: boolean;
   onClose: () => void;
   useNav?: typeof useSideNav;
+  context?: "sidebar" | "hamburger";
 }) {
   console.log("[CustomiseModal] Using context:", useNav.name);
   const { update, reset } = useNav();
@@ -29,7 +31,7 @@ export function CustomiseModal({
     const res = await fetch("/api/customise", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, context }),
     });
     const data = await res.json();
     if (data.error) setError(data.error);

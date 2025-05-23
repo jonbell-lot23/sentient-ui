@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Menu,
   Plus,
@@ -17,16 +17,21 @@ import {
   Globe,
   Cloud,
 } from "lucide-react";
-import { CustomiseModal } from "./CustomiseModal";
 import { useNav } from "../nav-context";
 import { useNav as useHamburgerNav } from "../hamburger-nav-context";
 import type { NavItem } from "../../lib/nav-items";
 
 export function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const { nav } = useNav();
   const { nav: hamburgerNav } = useHamburgerNav();
+
+  useEffect(() => {
+    const handleOpenMenu = () => setMenuOpen(true);
+    document.addEventListener('openHamburgerMenu', handleOpenMenu);
+    return () => document.removeEventListener('openHamburgerMenu', handleOpenMenu);
+  }, []);
+
 
   return (
     <header className="w-full bg-blue-600 text-white shadow flex items-center h-14 px-4 relative z-50">
@@ -81,22 +86,14 @@ export function TopBar() {
                 {hamburgerNav.map((i: NavItem) => (
                   <button
                     key={i.id}
-                    className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                    data-item-id={`hamburger-${i.id}`}
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-gray-50 text-gray-700 transition-all duration-300"
                   >
                     <i.Icon className="w-5 h-5" />
                     <span>{i.label}</span>
                   </button>
                 ))}
                 {/* Existing items */}
-                <button
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                  onClick={() => {
-                    setModalOpen(true);
-                  }}
-                >
-                  <Settings className="w-5 h-5" stroke="currentColor" />
-                  <span>Customize</span>
-                </button>
                 <button
                   className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                   onClick={() => setMenuOpen(false)}
@@ -116,14 +113,6 @@ export function TopBar() {
           )}
         </div>
       </div>
-      <CustomiseModal
-        open={modalOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setMenuOpen(false);
-        }}
-        useNav={useHamburgerNav}
-      />
       <style jsx global>{`
         @keyframes fadeIn {
           from {
